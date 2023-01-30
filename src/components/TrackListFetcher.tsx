@@ -4,9 +4,9 @@ import { API_Key } from "../utils/constants";
 import { useNavigation } from "@react-navigation/native";
 
 type linkprops = {
-    link: any;
-    tracks: any;
-    albumid: any;
+    link: string;
+    tracks: string;
+    albumid: string;
 }
 
 const TrackListFetcher = (props: linkprops) => {
@@ -15,7 +15,7 @@ const TrackListFetcher = (props: linkprops) => {
     const [data, setdata ] = useState<any>([]);
     const [loading, setLoading ] = useState(true);
     const navigation: any = useNavigation();
-    const albumid1 = props.albumid;
+    const [albumid1,setalbumid] = useState('');
     const imageurl = `https://api.napster.com/imageserver/v2/albums/${albumid1}/images/500x500.png`
     let getTracks = () => {
         fetch(props.link.toString()+API_Key)
@@ -25,9 +25,13 @@ const TrackListFetcher = (props: linkprops) => {
         .finally(() => setLoading(false));
     } 
     useEffect(()=>{
+        
+        tracklist = data.tracks;
+        console.log(props.link)
+        console.log(albumid1)
+        console.log(props.albumid);
+        setalbumid(props.albumid)
         getTracks();
-        tracklist = data.tracks
-        console.log(imageurl);
     },[])
     const renderItem = ({item, index}: any) => {
         track=item
@@ -57,6 +61,7 @@ const TrackListFetcher = (props: linkprops) => {
               data={data.tracks}
               keyExtractor={({ id }, index) => id}
               renderItem={renderItem}
+              extraData={albumid1}
             />
           </View>
         )}

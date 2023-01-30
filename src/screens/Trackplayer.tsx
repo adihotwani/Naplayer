@@ -19,22 +19,22 @@ const Trackplayer = ({route}: any) => {
     console.log(currentId)
     console.log(currenttrack)
     console.log(tracklist)
-    useTrackPlayerEvents(events, event => {
-        if (event.type === Event.PlaybackError) {
-            console.warn('An error occured while playing the current track');
-        }
-        if (event.type === Event.PlaybackState) {
-            console.log(event.type)
-        }
-        if (event.type === Event.RemotePlay) {
-            console.log(event.type)
-        }
-        if(event.type === Event.RemotePause) {
-            console.log(event.type)
-        }
-    });
+    // useTrackPlayerEvents(events, event => {
+    //     if (event.type === Event.PlaybackError) {
+    //         console.warn('An error occured while playing the current track');
+    //     }
+    //     if (event.type === Event.PlaybackState) {
+    //         console.log(event.type)
+    //     }
+    //     if (event.type === Event.RemotePlay) {
+    //         console.log(event.type)
+    //     }
+    //     if(event.type === Event.RemotePause) {
+    //         console.log(event.type)
+    //     }
+    // });
     const setup = async () => {
-        await TrackPlayer.setupPlayer({})
+        await TrackPlayer.setupPlayer()
         await TrackPlayer.add(tracklist);
       }
       useEffect(()=>{

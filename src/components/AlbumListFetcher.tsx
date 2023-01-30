@@ -1,15 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Image, Text, FlatList, TouchableOpacity,  } from "react-native";
+import { StyleSheet, View, Text, FlatList, TouchableOpacity,  } from "react-native";
 import { API_Key } from "../utils/constants";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useIsFocused } from "@react-navigation/native";
 
 const AlbumListFetcher = () => {
     const [data, setdata ] = useState<any>([]);
     const [loading, setLoading ] = useState(true);
-    var tracklink: any
-    var trackcount: any
-    var image: any
-    var albumid: any;
 
     const navigation: any = useNavigation();
     let getAlbums = () => {
@@ -25,26 +21,29 @@ const AlbumListFetcher = () => {
         getAlbums();
     }, [])
     
-    let renderItem = ({item}: any) => {
-        albumid = item.id
-        image=item.links.images.href
-        trackcount = item.trackCount
-        tracklink=item.links.tracks.href
-        let onalbumclick = () => {
-            navigation.navigate('TrackDisplay',{tracks: trackcount, link: tracklink, albumid: albumid } )
-        }
-        return(
-            
-                <TouchableOpacity onPress={onalbumclick} style={styles.albumItem}>
-                    <View style={{width: '80%'}}>
-                        <Text style={styles.albumname}>{item.name.toString()}</Text>
-                        <Text style={styles.albumartists}>{item.artistName.toString()}</Text>
-                        <Text style={styles.albumrel}>{item.released.toString()}</Text>
-                    </View>
-                    <Text style={styles.albumtracks}>{item.trackCount.toString()}</Text>
-                </TouchableOpacity>
-            
-        )
+    let renderItem = ({item, index}: any) => {
+            var albumID = item.id
+            var trackcount = item.trackCount
+            var Tracklink=item.links.tracks.href;
+            let onalbumclick = () => {
+                console.log(trackcount);
+                console.log(Tracklink)
+                console.log(albumID)
+                navigation.navigate('TrackDisplay',{tracks: trackcount, link: Tracklink, albumid: albumID } )
+            }
+            return(
+                
+                    <TouchableOpacity onPress={onalbumclick} style={styles.albumItem}>
+                        <View style={{width: '80%'}}>
+                            <Text style={styles.albumname}>{item.name.toString()}</Text>
+                            <Text style={styles.albumartists}>{item.artistName.toString()}</Text>
+                            <Text style={styles.albumrel}>{item.released.toString()}</Text>
+                        </View>
+                        <Text style={styles.albumtracks}>{item.trackCount.toString()}</Text>
+                    </TouchableOpacity>
+                
+            )
+        
     }
     return(
         <View>
@@ -53,8 +52,9 @@ const AlbumListFetcher = () => {
             <FlatList
             scrollEnabled= {true}
               data={data.albums}
-              keyExtractor={({ id }, index) => id}
+              keyExtractor={(item) => item.id}
               renderItem={renderItem}
+              extraData={data}
             />
           </View>
         )}
