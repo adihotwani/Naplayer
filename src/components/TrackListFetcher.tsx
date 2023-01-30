@@ -10,8 +10,6 @@ type linkprops = {
 }
 
 const TrackListFetcher = (props: linkprops) => {
-    var track: any
-    var tracklist: any
     const [data, setdata ] = useState<any>([]);
     const [loading, setLoading ] = useState(true);
     const navigation: any = useNavigation();
@@ -25,23 +23,20 @@ const TrackListFetcher = (props: linkprops) => {
         .finally(() => setLoading(false));
     } 
     useEffect(()=>{
-        
-        tracklist = data.tracks;
-        console.log(props.link)
-        console.log(albumid1)
-        console.log(props.albumid);
         setalbumid(props.albumid)
         getTracks();
+        
     },[])
-    const renderItem = ({item, index}: any) => {
-        track=item
+    var tracklist = data.tracks;
+    const renderItem = ({item}: any) => {
+        var track=item
         let min: any = Math.round((item.playbackSeconds)/60);
         let ontrackclick =() => {
-            navigation.navigate('Trackplayer', {albumid: albumid1, track: track,tracks: tracklist,trackid: index})
+            navigation.navigate('Trackplayer', {albumid: albumid1, track: track,tracks: tracklist,trackid: item.id})
         }
         return(
             <TouchableOpacity onPress={ontrackclick} style={styles.trackItem}>
-                    <Image style={styles.playbutton} source={require('./../assets/buttons/playpause.png')} />
+                    <Image style={styles.playbutton} source={require('./../assets/icons/play.png')} />
                     <View style={{width: '80%'}}>
                         <Text style={styles.trackname}>{item.name.toString()}</Text>
                         <Text style={styles.tracktime}>{min} min</Text>
@@ -59,7 +54,7 @@ const TrackListFetcher = (props: linkprops) => {
             <FlatList
             scrollEnabled= {true}
               data={data.tracks}
-              keyExtractor={({ id }, index) => id}
+              keyExtractor={({item}) => item.id}
               renderItem={renderItem}
               extraData={albumid1}
             />

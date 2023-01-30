@@ -16,9 +16,6 @@ const Trackplayer = ({route}: any) => {
     const tracklist = route.params.tracklist;
     const [isPlaying, setisPlaying] = useState(false);
     const albumid = route.params.albumid;
-    console.log(currentId)
-    console.log(currenttrack)
-    console.log(tracklist)
     // useTrackPlayerEvents(events, event => {
     //     if (event.type === Event.PlaybackError) {
     //         console.warn('An error occured while playing the current track');
