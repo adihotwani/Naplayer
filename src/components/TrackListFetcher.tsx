@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     trackname: {marginLeft: 10, marginTop: 5,color: '#000', fontWeight: 'bold', fontSize: 20},
     tracktime: {marginLeft: 20, marginTop:2, fontSize: 18,color: '#000'},
     trackartist: {marginLeft: 20, marginTop: 2,marginBottom:5, fontSize: 15,color: '#000'},
-    playbutton: {justifyContent: 'center', alignItems: 'center', color: '#000', padding: 10, fontWeight: 'bold', width: '20%', height: '100%'},
+    playbutton: {justifyContent: 'center', alignItems: 'center', color: '#000', padding: 10, fontWeight: 'bold', width: '23%', height: '100%'},
 })
 
 export default TrackListFetcher;
