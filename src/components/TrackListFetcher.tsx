@@ -54,7 +54,7 @@ const TrackListFetcher = (props: linkprops) => {
             <FlatList
             scrollEnabled= {true}
               data={data.tracks}
-              keyExtractor={({item}) => item.id}
+              keyExtractor={({id}) => id}
               renderItem={renderItem}
               extraData={albumid1}
             />
